@@ -9,7 +9,7 @@
  * drawn but that is not the case. What's really happening is the entire "scene"
  * is being drawn over and over, presenting the illusion of animation.
  *
- * This engine makes the canvas' context (ctx) object globally available to make 
+ * This engine makes the canvas' context (ctx) object globally available to make
  * writing app.js a little simpler to work with.
  */
 
@@ -23,10 +23,18 @@ var Engine = (function(global) {
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
+    const container = document.querySelector('.container');
+    const gems = document.createElement('div');
+    const ul = document.createElement('ul');
+
+    gems.appendChild(ul);
+    gems.className = 'gems';
+    let myReq;
 
     canvas.width = 505;
     canvas.height = 606;
-    doc.body.appendChild(canvas);
+    container.appendChild(canvas);
+    container.appendChild(gems);
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -66,6 +74,54 @@ var Engine = (function(global) {
         reset();
         lastTime = Date.now();
         main();
+        start();
+    }
+
+    function start() {
+        // const startPanel = document.querySelector('.start');
+        // startPanel.style.display = 'flex';
+        // const playerImg = document.querySelector('.player');
+
+        // playerImg.addEventListener('click', () => {
+        //     player.update();
+        //     cancelAnimationFrame(myReq);
+        //     main();
+        //     startMove();
+        //     startPanel.style.display = 'none';
+        // });
+        item1.whenGoodsAppear();
+
+        //Display counter
+
+        counter.innerHTML = 'SCORE: ' + player.points;
+
+        //Choosing player's avatar
+
+        // const leftArrow = document.querySelector('#left');
+        // const rightArrow = document.querySelector('#right');
+        // let count = 0;
+
+        // //Change Avatar in right
+        // rightArrow.addEventListener('click', () => {
+        //     count++;
+        //     if (count === playerImages.length) {
+        //         count = 0;
+        //     }
+        //     playerImg.firstElementChild.src = playerImages[count];
+        //     player.changeLook(count, playerImages);
+        //     render();
+        // });
+
+        // //Change avatar in left
+        // leftArrow.addEventListener('click', () => {
+        //     count--;
+        //     if (count < 0) {
+        //         count = playerImages.length - 1;
+        //     }
+        //     playerImg.firstElementChild.src = playerImages[count];
+        //     player.changeLook(count, playerImages);
+        //     render();
+        // });
     }
 
     /* This function is called by main (our game loop) and itself calls all
@@ -117,7 +173,7 @@ var Engine = (function(global) {
             numRows = 6,
             numCols = 5,
             row, col;
-        
+
         // Before drawing, clear existing canvas
         ctx.clearRect(0,0,canvas.width,canvas.height)
 
@@ -149,10 +205,12 @@ var Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
+        allItems.forEach(function (item) {
+            item.render();
+        });
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
-
         player.render();
     }
 
@@ -161,7 +219,7 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+        start();
     }
 
     /* Go ahead and load all of the images we know we're going to need to
@@ -173,7 +231,10 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/orange_gem.png',
+        'images/blue_gem.png',
+        'images/green_gem.png'
     ]);
     Resources.onReady(init);
 

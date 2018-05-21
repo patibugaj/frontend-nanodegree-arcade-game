@@ -1,3 +1,318 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html,
 body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Coda', cursive;
+}
+
+header {
+    margin-bottom: -50px;
+    margin-top: 10px;
+}
+
+h1 {
+    font-family: 'Abril Fatface', cursive;
+    letter-spacing: 3px;
+    font-weight: 300;
+    margin-bottom: 0.4em;
+}
+
+.fa-heart {
+    color: #e60000;
+    font-size: 45px;
+}
+
+.canvas {
+    float: right;
+    padding: 0 50px;
+}
+
+header, .canvas {
+	display: block;
     text-align: center;
+}
+/*
+Scoreboard
+*/
+.score-panel {
+    float: left;
+    margin-left: 100px;
+    margin-right: 20px;
+    margin-top: 49px;
+    background-color: lightgray;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.score-panel .lives {
+    display: inline-block;
+    padding-left: 20px;
+    margin-right: 0;
+}
+.score-panel .lives li {
+    list-style: none;
+    display: block;
+    padding-bottom: 20px;
+}
+/*
+ * Styles for the Score Panel
+ */
+
+/*.score-panel {
+    font-size: 14px;
+    width: 352px;
+    max-width: 352px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}*/
+
+.score-panel > div {
+    margin: auto;
+    text-align: center;
+}
+
+.score-panel .lives {
+    flex-basis: 25%;
+}
+
+.score-panel .moves {
+    flex-basis: 20%;
+}
+
+.score-panel .moves .moves-elem {
+    display: inline-block;
+}
+
+.score-panel .moves #moves-number {
+    width: 10px;
+}
+
+.score-panel .timer {
+    flex-basis: 40%;
+}
+
+.score-panel .timer .timer-elem {
+    display: inline-block;
+}
+
+.score-panel .timer #timer-mins {
+    width: 10px;
+}
+
+.score-panel .timer #timer-secs {
+    width: 25px;
+}
+
+.score-panel .stars {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
+.score-panel p {
+    display: inline;
+}
+
+.score-panel .restart {
+    flex-basis: 12%;
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/*
+ * Gems panel
+ */
+
+ .gems {
+    width: 60px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 2em;
+ }
+
+ .gems img {
+    width: 40px;
+ }
+
+ .gems ul {
+    padding: 0.5em;
+ }
+
+ .gems li{
+    list-style: none;
+    padding: 0;
+ }
+
+/*
+ * Counter panel
+ */
+
+ .counter {
+    width: 400px;
+    height: 30px;
+    font-family: Bazaronite;
+    font-weight: bold;
+    font-size: 3em;
+    color: #716d6d;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    left: 10%;
+ }
+/*
+ * Start panel
+ */
+
+.start {
+    width:  300px;
+    height:  200px;
+    background-color:  gainsboro;
+    position:  absolute;
+    left: 25%;
+    margin-left: auto;
+    margin-right:  auto;
+    top: 22%;
+    border-radius: 10px;
+    border: 1px solid #f3eaea;
+    display: none;
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+}
+
+.text {
+    position: absolute;
+    width: 100%;
+    font-family: Bazaronite;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.nav {
+    width: 20%;
+    height: 50%;
+    margin: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+
+#left {
+    margin-left: 15px;
+}
+
+.player {
+
+    width: 50%;
+    height: 50%;
+
+}
+
+.player img {
+    cursor: pointer;
+}
+/*
+ * Styles for popup window
+ */
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.alert {
+    margin: 70px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 5px;
+    width: 80%;
+    position: relative;
+    text-align: center;
+}
+
+.alert h2 {
+    text-align: center;
+    color: #333;
+    font-family: 'Abril Fatface', cursive;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.alert .close-button {
+    width: 100%;
+}
+
+.alert .close {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+.alert .close:hover {
+    color: #E5F720;
+}
+
+.alert .content-1,
+.content-2 {
+    max-height: 30%;
+    overflow: auto;
+    text-align: center;
+}
+
+.show {
+    visibility: visible !important;
+    opacity: 100 !important;
+}
+
+#starRating li {
+    display: inline-block;
+}
+
+/*button to play again*/
+#play-again {
+    box-sizing: content-box;
+    background-color: #1abc9c;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 15px 25px;
+    border-radius: 30px;
+    border: 0;
+    cursor: pointer;
 }
