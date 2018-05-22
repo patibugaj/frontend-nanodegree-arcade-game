@@ -166,20 +166,26 @@ Scoreboard
 /*
  * Counter panel
  */
-
- .counter {
-    width: 400px;
+.panel-counter{
+    width: 500px;
     height: 30px;
-    font-family: Bazaronite;
-    font-weight: bold;
-    font-size: 3em;
-    color: #716d6d;
-    box-sizing: border-box;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
+    flex-wrap: nowrap;
     position: absolute;
-    left: 10%;
- }
+    left: 30%;
+}
+
+.panel-counter .counter {
+    font-weight: bold;
+    font-size: 2em;
+    color: #716d6d;
+    flex-basis: 70%;
+}
+
+.panel-counter #timer {
+    flex-basis: 40%;
+}
 /*
  * Start panel
  */
@@ -230,6 +236,7 @@ Scoreboard
 .player img {
     cursor: pointer;
 }
+
 /*
  * Styles for popup window
  */

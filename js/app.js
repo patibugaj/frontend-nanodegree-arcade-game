@@ -1,5 +1,5 @@
 let speed = 1;
-let countOfGems = 1;
+let countOfGems = 0;
 let allItems = [];
 let whenGoodsAppearArray = [0, 0, 0];
 
@@ -26,9 +26,9 @@ const playerImages = [
 ];
 
 const goodItems = [
-    'images/orange-gem.png',
-    'images/green-gem.png',
-    'images/blue-gem.png',
+    'images/seahorse2-gem.png',
+    'images/star1-gem.png',
+    'images/goldfish-gem.png',
     'images/Selector.png'
 ];
 
@@ -43,7 +43,7 @@ var Enemy = function(x, y) {
     this.y = y;
     this.dt = Math.floor(Math.random() * 2 + 1) * speed;
     this.collision = false;
-    this.sprite = 'images/enemy-bug.png';
+    this.sprite = 'images/shark-enemy-resize.png';
 };
 
 // Update the enemy's position, required method for game
@@ -123,7 +123,7 @@ Player.prototype.update = function() {
     const gems = document.querySelector('.gems ul');
     if (countOfGems >= 4) {
         speed += 0.4;
-        countOfGems = 1;
+        countOfGems = 0;
 
         //This loop sets new moment when goods appears
         for (i = 0; i < 3; i++) {
@@ -159,10 +159,11 @@ Player.prototype.getGoodItem = function () {
             item.x = 1000;
             this.points += item.points;
             counter.innerHTML = 'SCORE: ' + player.points;
-            gem.innerHTML = `<img src="${look.substr(0, look.length - 4)}-x.png" alt="gem">`;
+            gem.innerHTML = `<img src="${look.substr(0, look.length - 4)}.png" alt="gem">`;
             console.log(gem);
             gems.appendChild(gem);
             countOfGems++;
+            console.log(gems);
         }
     })
 
@@ -174,7 +175,6 @@ Player.prototype.appearItem = function () {
         item1.posX();
         item1.posY();
         allItems.push(item1);
-        console.log(allItems);
         whenGoodsAppearArray[0] = 1000000;
 
     } else if (this.points > whenGoodsAppearArray[1]) {
@@ -207,7 +207,7 @@ Player.prototype.reachWatherOnBoard = function () {
 Player.prototype.clear = function() {
     allItems = [];
     speed = 1;
-    countOfGems = 1;
+    countOfGems = 0;
 }
 
 Player.prototype.handleInput = function(direction){
@@ -249,10 +249,9 @@ var GoodItem = function(look = 0, x, y, points) {
         this.x = x;
         this.y = y;
         this.points = points;
-        this.look = this.changeLook(look, goodItems)
-        console.log(this.look);
+        this.look = this.update(look, goodItems);
     }
-GoodItem.prototype.changeLook = function(look, array) {
+GoodItem.prototype.update = function(look, array) {
         this.look = array[look]
         return this.look;
     }
@@ -270,15 +269,31 @@ GoodItem.prototype.whenGoodsAppear = function() {
 
 GoodItem.prototype.posX = function() {
         this.x = itemPosX[Math.floor(Math.random() * 5)]
+        console.log('x:',this.x);
     }
 
 GoodItem.prototype.posY = function() {
         this.y = itemPosY[Math.floor(Math.random() * 3)]
+        console.log('y:',this.y);
     }
 
 // Gems will appear at the top of the board in random order
 // Gem location will not be repeated
 // Collect 5 gems to win the game
+
+
+// calculate how much time takes the game
+function calculateTime() {
+    const startTime= 3*60;
+    const timeLeft = minute*60 + second;
+    const finalTimeTotal = startTime-timeLeft;
+    const finalTimeMinutes = Math.floor(finalTimeTotal/60);
+    const finalTimeSeconds = finalTimeTotal - finalTimeMinutes * 60;
+    clearInterval(interval);
+    const finalTime = "in "+finalTimeMinutes+" mins "+finalTimeSeconds+" secs";
+
+    return finalTime;
+}
 
 
 //-----Alert Window
@@ -315,9 +330,10 @@ const itemPosY = [115, 200, 285];
 const itemPosX = [25, 125, 225, 325, 425];
 
 const item1 = new GoodItem(0, 0, 0, 50)
-console.log(item1);
+//console.log('item1: ',item1);
 const item2 = new GoodItem(1, 0, 0, 80)
 const item3 = new GoodItem(2, 0, 0, 100)
+const allGoogies = [item1, item2, item3];
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

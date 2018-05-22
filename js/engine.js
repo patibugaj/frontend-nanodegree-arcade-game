@@ -24,17 +24,60 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
     const container = document.querySelector('.container');
-    const gems = document.createElement('div');
+    const gems = document.querySelector('.gems');
     const ul = document.createElement('ul');
 
     gems.appendChild(ul);
-    gems.className = 'gems';
     let myReq;
+    //variabled for timer
+    let second, minute;
+    let timer = document.querySelector("#timer");
+    let timerMins = document.querySelector("#timer-mins");
+    let timerSecs = document.querySelector("#timer-secs");
+    let interval;
+    //reset timer
+    second = 0;
+    minute = 0;
+    timerMins.innerHTML = minute;
+    timerSecs.innerHTML = '0'+second;
+    clearInterval(interval);
 
     canvas.width = 505;
     canvas.height = 606;
-    container.appendChild(canvas);
-    container.appendChild(gems);
+    container.appendChild(canvas);// countdown timer
+
+function startTimer(){
+    interval = setInterval(function(){
+        second++;
+        //change minute
+        if(second == 60){
+            minute++;
+            second=0;
+        }
+
+        timerMins.innerHTML = minute;
+
+        //add leading zero
+        if(second<10){
+            timerSecs.innerHTML = '0'+second;
+        } else {
+            timerSecs.innerHTML = second;
+        }
+
+        // //add style for last 10sec countdown
+        // if(minute==0&&second<10){
+        //     timer.style.animationName= "flash";
+        //     timer.style.animationDuration= ".75s";
+        //     timer.style.color= "red";
+        // }
+
+        // //if time is over display popup
+        // if(minute<0&&second==59){
+        //     endOfGame("timeLeft");
+        // }
+
+    },1000);
+}
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -75,6 +118,7 @@ var Engine = (function(global) {
         lastTime = Date.now();
         main();
         start();
+        startTimer();
     }
 
     function start() {
@@ -162,11 +206,11 @@ var Engine = (function(global) {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
-        var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
+        var rowImages = [   // Top row is stone
+                'images/stone-block.png',
+                'images/water-block.png',   // Row 1 of 3 of water
+                'images/water-block.png',   // Row 2 of 3 of water
+                'images/water-block.png',   // Row 3 of 3 of water
                 'images/grass-block.png',   // Row 1 of 2 of grass
                 'images/grass-block.png'    // Row 2 of 2 of grass
             ],
@@ -230,11 +274,11 @@ var Engine = (function(global) {
         'images/stone-block.png',
         'images/water-block.png',
         'images/grass-block.png',
-        'images/enemy-bug.png',
+        'images/shark-enemy-resize.png',
         'images/char-boy.png',
-        'images/orange_gem.png',
-        'images/blue_gem.png',
-        'images/green_gem.png'
+        'images/seahorse2-gem.png',
+        'images/star1-gem.png',
+        'images/goldfish-gem.png'
     ]);
     Resources.onReady(init);
 
