@@ -32,11 +32,6 @@ h1 {
     margin-bottom: 0.4em;
 }
 
-.fa-heart {
-    color: #e60000;
-    font-size: 45px;
-}
-
 .canvas {
     float: right;
     padding: 0 50px;
@@ -60,28 +55,29 @@ Scoreboard
     flex-direction: column;
     flex-wrap: wrap;
 }
-.score-panel .lives {
-    display: inline-block;
-    padding-left: 20px;
-    margin-right: 0;
+.score-panel .counter {
+	padding: 15px 0;
+    font-weight: bold;
+    color: #716d6d;
 }
-.score-panel .lives li {
-    list-style: none;
-    display: block;
-    padding-bottom: 20px;
+
+.score-panel #timer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 10px;
 }
+
+#timer .time-header,
+#timer .time-display {
+	width: 100%;
+	margin: 0 auto;
+	border: 1px solid red;
+}
+
 /*
  * Styles for the Score Panel
  */
-
-/*.score-panel {
-    font-size: 14px;
-    width: 352px;
-    max-width: 352px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-}*/
 
 .score-panel > div {
     margin: auto;
@@ -90,6 +86,33 @@ Scoreboard
 
 .score-panel .lives {
     flex-basis: 25%;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+.score-panel .lives div,
+.score-panel .lives ul {
+	width: 100%;
+	margin: 0 auto;
+	border: 1px solid red;
+}
+
+.score-panel .lives li {
+    list-style: none;
+    display: block;
+    padding: 5px;
+    margin: auto;
+}
+
+.hearts {
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+}
+
+.fa-heart {
+    color: #e60000;
+    font-size: 35px;
 }
 
 .score-panel .moves {
@@ -120,17 +143,6 @@ Scoreboard
     width: 25px;
 }
 
-.score-panel .stars {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    margin: 0 5px 0 0;
-}
-
-.score-panel p {
-    display: inline;
-}
-
 .score-panel .restart {
     flex-basis: 12%;
     float: right;
@@ -143,49 +155,57 @@ Scoreboard
  */
 
  .gems {
-    width: 60px;
+    width: 100%;
     box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 2em;
  }
+
+.score-panel .gems div,
+.score-panel .gems ul {
+	width: 100%;
+	margin: 0 auto;
+	border: 1px solid red;
+}
 
  .gems img {
     width: 40px;
  }
 
  .gems ul {
-    padding: 0.5em;
+    padding: 0 0.5em;
+    margin-top: 0;
+    display: flex;
+    flex-direction: row;
  }
 
  .gems li{
     list-style: none;
     padding: 0;
+    margin: auto;
  }
 
-/*
- * Counter panel
- */
-.panel-counter{
-    width: 500px;
-    height: 30px;
+ .gems #seahorse-gem {
+ 	padding-left: 3px
+ }
+
+ .gems #star-gem {
+ 	padding-left: 9px
+ }
+
+
+ .score-panel .box-header {
+ 	height: 40px;
+ 	background-color: brown;
+ 	color: white;
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    position: absolute;
-    left: 30%;
-}
+    flex-direction: column;
+    justify-content: center;
+ }
 
-.panel-counter .counter {
-    font-weight: bold;
-    font-size: 2em;
-    color: #716d6d;
-    flex-basis: 70%;
-}
-
-.panel-counter #timer {
-    flex-basis: 40%;
-}
+ .score-panel .box-details {
+ 	height: 60px;
+ 	background-color: grey;
+ 	color: white;
+ }
 /*
  * Start panel
  */

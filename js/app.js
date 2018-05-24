@@ -4,7 +4,7 @@ let allItems = [];
 let whenGoodsAppearArray = [0, 0, 0];
 
 // variables for star icons
-const stars = document.querySelector(".stars");
+const hearts = document.querySelector(".hearts");
 const counter = document.querySelector('.counter');
 
 //variables for popup modal
@@ -75,8 +75,8 @@ Enemy.prototype.isCollisionPlayerEnemy = function() {
         player.y = player.initialY;
 
         player.lives--;
-        if (stars.lastElementChild) {
-            stars.removeChild(stars.lastElementChild)
+        if (hearts.lastElementChild) {
+            hearts.removeChild(hearts.lastElementChild)
         }
 
         if(player.lives==0){

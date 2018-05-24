@@ -10,39 +10,43 @@
 <body>
     <div class="container">
 
-        <!-- Panel counter -->
-        <section class="panel-counter">
-	        <div class="counter"></div>
-
-	        <div id="timer" class="timer">
-	            <p>
-	                <span id='timer-time' class='timer-elem'>Time: </span>
-	                <span id='timer-mins' class='timer-elem'></span>
-	                <span id='timer-mins-text' class='timer-elem'> mins </span>
-	                <span id='timer-secs' class='timer-elem'></span>
-	                <span id='timer-secs-text' class='timer-elem'> secs</span>
-	            </p>
-	        </div>
-        </section>
-
         <!-- Panel Start -->
-
         <div class="start">
             <div class="text">choose your avatar</div>
             <div class="nav" id="left"><img src="images/arrowhead-thin-outline-to-the-left.png" alt="arrow left"></div>
             <div class="player"><img src="images/char-boy.png" alt="player"></div>
             <div class="nav" id="right"><img src="images/arrow-point-to-right.png" alt="arrow right"></div>
         </div>
+
         <section class="score-panel">
+
+	        <div class="counter"></div>
+	        <div id="timer" class="timer">
+	        	<div class='time-header box-header'><p>Time</p></div>
+	            <div class='time-display box-details'>
+		            <p>
+		                <span id='timer-mins' class='timer-elem'></span>
+		                <span id='timer-mins-text' class='timer-elem'> mins </span>
+		                <span id='timer-secs' class='timer-elem'></span>
+		                <span id='timer-secs-text' class='timer-elem'> secs</span>
+		            </p>
+	            </div>
+	        </div>
             <div class="lives">
-            	<ul class="stars">
-            		<li id="star1" class="star"><i class="fa fa-heart" aria-hidden="true"></i></li>
-            		<li id="star2" class="star"><i class="fa fa-heart" aria-hidden="true"></i></li>
-            		<li id="star3" class="star"><i class="fa fa-heart" aria-hidden="true"></i></li>
+            	<div class="box-header"><p>Lives</p></div>
+            	<ul class="hearts box-details">
+            		<li id="heart1" class="heart"><i class="fa fa-heart" aria-hidden="true"></i></li>
+            		<li id="heart2" class="heart"><i class="fa fa-heart" aria-hidden="true"></i></li>
+            		<li id="heart3" class="heart"><i class="fa fa-heart" aria-hidden="true"></i></li>
             	</ul>
             </div>
             <div class="gems">
-
+            	<div class="box-header"><p>Gems</p></div>
+            	<ul class="gems-collection box-details">
+            		<li id="seahorse-gem" class="gem"><img src="images/seahorse2-black-gem.png"></li>
+            		<li id="star-gem" class="gem"><img src="images/star1-black-gem.png"></li>
+            		<li id="fish-gem" class="gem"><img src="images/goldfish-black-gem.png"></li>
+            	</ul>
             </div>
 <!--
         	<div class="moves">
