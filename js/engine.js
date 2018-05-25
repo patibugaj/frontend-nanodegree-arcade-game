@@ -29,6 +29,11 @@ var Engine = (function(global) {
 
     gems.appendChild(ul);
     let myReq;
+
+    //variables for moves
+    let moves = document.querySelector(".moves");
+    let movesNumber = document.querySelector("#moves-number");
+
     //variabled for timer
     let second, minute;
     let timer = document.querySelector("#timer");

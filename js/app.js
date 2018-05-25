@@ -82,10 +82,21 @@ Enemy.prototype.isCollisionPlayerEnemy = function() {
         if(player.lives==0){
             heading.innerHTML = 'End of Game';
             paragraph1.innerHTML = 'You lose! You lost all your lives';
+            document.getElementById("finalMove").innerHTML = countMoves;
+            document.getElementById("starRating").innerHTML = starRating;
+            document.getElementById("totalTime").innerHTML = calculateTime();
             // add class to display popup
             modal.classList.add("show");
             //close icon
             closeButton();
+
+            //showing move, rating
+            if(countMoves==1) {
+                document.getElementById("finalMove").innerHTML = countMoves+' move';
+            }else{
+                document.getElementById("finalMove").innerHTML = countMoves+' moves';
+            }
+            document.getElementById("starRating").innerHTML = starRating;
         }
 
         this.collision = true;
@@ -152,18 +163,27 @@ Player.prototype.adPoints = function() {
 //This method checks when player collect gems
 Player.prototype.getGoodItem = function () {
     allItems.forEach(item => {
-        const gems = document.querySelector('.gems ul');
-        const gem = document.createElement('li');
         if (this.x + 25 === item.x && this.y + 55 === item.y) {
+        let gem = '';
             let look = item.look;
-            item.x = 1000;
             this.points += item.points;
             counter.innerHTML = 'SCORE: ' + player.points;
-            gem.innerHTML = `<img src="${look.substr(0, look.length - 4)}.png" alt="gem">`;
-            console.log(gem);
-            gems.appendChild(gem);
+            //changing black shadow of games on a score panel to the collected colorfull gem image
+            if(look.indexOf('seahorse')>0){
+                gem = document.querySelector('#seahorse-gem img');
+                gem.src = look;
+            }
+            if(look.indexOf('star')>0){
+                gem = document.querySelector('#star-gem img');
+                gem.src = look;
+            }
+            if(look.indexOf('fish')>0){
+                gem = document.querySelector('#fish-gem img');
+                gem.src = look;
+            }
+            item.x=-1000;
+            item.y=-1000;
             countOfGems++;
-            console.log(gems);
         }
     })
 
@@ -176,18 +196,21 @@ Player.prototype.appearItem = function () {
         item1.posY();
         allItems.push(item1);
         whenGoodsAppearArray[0] = 1000000;
+        console.log(item1);
 
     } else if (this.points > whenGoodsAppearArray[1]) {
         item2.posX();
         item2.posY();
         allItems.push(item2);
         whenGoodsAppearArray[1] = 1000000;
+        console.log(item2);
     }
     else if (this.points > whenGoodsAppearArray[2]) {
         item3.posX();
         item3.posY();
         allItems.push(item3);
         whenGoodsAppearArray[2] = 1000000;
+        console.log(item3);
     }
 }
 
@@ -213,6 +236,8 @@ Player.prototype.clear = function() {
 Player.prototype.handleInput = function(direction){
     switch (direction) {
         case 'left':
+            countMoves++;
+            console.log(countMoves);
             if (this.x > 0) {
                 this.x -= 100;
                 this.adPoints();
@@ -220,6 +245,8 @@ Player.prototype.handleInput = function(direction){
             }
             break;
         case 'right':
+            countMoves++;
+            console.log(countMoves);
             if (this.x < 399) {
                 this.x += 100;
                 this.adPoints();
@@ -227,6 +254,8 @@ Player.prototype.handleInput = function(direction){
             }
             break;
         case 'up':
+            countMoves++;
+            console.log(countMoves);
             if (this.y > 0) {
                 this.y -= 85;
                 this.adPoints();
@@ -234,6 +263,8 @@ Player.prototype.handleInput = function(direction){
             }
             break;
         case 'down':
+            countMoves++;
+            console.log(countMoves);
             if (this.y < 399 && speed >1.8) {
                 this.y += 85;
                 this.adPoints();
@@ -284,14 +315,13 @@ GoodItem.prototype.posY = function() {
 
 // calculate how much time takes the game
 function calculateTime() {
-    const startTime= 3*60;
-    const timeLeft = minute*60 + second;
-    const finalTimeTotal = startTime-timeLeft;
+    console.log(this.minute, this.second);
+    const finalTimeTotal = this.minute*60 + this.second;
     const finalTimeMinutes = Math.floor(finalTimeTotal/60);
     const finalTimeSeconds = finalTimeTotal - finalTimeMinutes * 60;
-    clearInterval(interval);
+    clearInterval(this.interval);
     const finalTime = "in "+finalTimeMinutes+" mins "+finalTimeSeconds+" secs";
-
+console.log(finalTime);
     return finalTime;
 }
 
@@ -324,6 +354,8 @@ const enemy4 = new Enemy(-290, 60);
 const enemy5 = new Enemy(-290, 145);
 const enemy6 = new Enemy(-280, 230);
 const allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6];
+
+let countMoves = 0;
 
 var player = new Player(200,400);
 const itemPosY = [115, 200, 285];
