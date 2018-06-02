@@ -340,7 +340,7 @@ Scoreboard
 
 .alert h2 {
     text-align: center;
-    color: #333;
+    color: #00267d;
     font-size: 30px;
     letter-spacing: 4px;
     margin: 0 0 30px 0;
@@ -393,6 +393,7 @@ Scoreboard
 
 .content-2 p:first-child{
 	margin-bottom: 30px;
+	color: #00267d;
 }
 
 .show {
