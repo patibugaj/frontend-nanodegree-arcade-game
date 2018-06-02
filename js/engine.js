@@ -18,28 +18,27 @@ var Engine = (function(global) {
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
      */
-    var doc = global.document,
-        win = global.window,
-        canvas = doc.createElement('canvas'),
-        ctx = canvas.getContext('2d'),
-        lastTime;
-    const container = document.querySelector('.container');
-    const gems = document.querySelector('.gems');
-    const ul = document.createElement('ul');
+    const doc = global.document;
+    const win = global.window;
+    const canvas = doc.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    let lastTime;
+    const container = doc.querySelector('.container');
+    const gems = doc.querySelector('.gems');
+    const ul = doc.createElement('ul');
+    //Start Panel
+    const startPanel = doc.querySelector('.start');
+    const playerImg = doc.querySelector('.avatar');
+    const leftArrow = doc.querySelector('#left');
+    const rightArrow = doc.querySelector('#right');
 
     gems.appendChild(ul);
     let myReq;
 
-    //variables for moves
-    let moves = document.querySelector(".moves");
-    let movesNumber = document.querySelector("#moves-number");
+    canvas.width = 505;
+    canvas.height = 606;
+    container.appendChild(canvas);
 
-    //variabled for timer
-    let second, minute;
-    let timer = document.querySelector("#timer");
-    let timerMins = document.querySelector("#timer-mins");
-    let timerSecs = document.querySelector("#timer-secs");
-    let interval;
     //reset timer
     second = 0;
     minute = 0;
@@ -47,42 +46,27 @@ var Engine = (function(global) {
     timerSecs.innerHTML = '0'+second;
     clearInterval(interval);
 
-    canvas.width = 505;
-    canvas.height = 606;
-    container.appendChild(canvas);// countdown timer
+    //set timer for the game
+    function startTimer(){
+        interval = setInterval(function(){
+            second++;
+            //change minute
+            if(second == 60){
+                minute++;
+                second=0;
+            }
 
-function startTimer(){
-    interval = setInterval(function(){
-        second++;
-        //change minute
-        if(second == 60){
-            minute++;
-            second=0;
-        }
+            timerMins.innerHTML = minute;
 
-        timerMins.innerHTML = minute;
+            //add leading zero
+            if(second<10){
+                timerSecs.innerHTML = '0'+second;
+            } else {
+                timerSecs.innerHTML = second;
+            }
 
-        //add leading zero
-        if(second<10){
-            timerSecs.innerHTML = '0'+second;
-        } else {
-            timerSecs.innerHTML = second;
-        }
-
-        // //add style for last 10sec countdown
-        // if(minute==0&&second<10){
-        //     timer.style.animationName= "flash";
-        //     timer.style.animationDuration= ".75s";
-        //     timer.style.color= "red";
-        // }
-
-        // //if time is over display popup
-        // if(minute<0&&second==59){
-        //     endOfGame("timeLeft");
-        // }
-
-    },1000);
-}
+        },1000);
+    }
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -119,58 +103,47 @@ function startTimer(){
      * game loop.
      */
     function init() {
-        reset();
+        render();
         lastTime = Date.now();
-        main();
         start();
-        startTimer();
     }
 
     function start() {
-        // const startPanel = document.querySelector('.start');
-        // startPanel.style.display = 'flex';
-        // const playerImg = document.querySelector('.player');
+        startPanel.style.display = 'flex';
 
-        // playerImg.addEventListener('click', () => {
-        //     player.update();
-        //     cancelAnimationFrame(myReq);
-        //     main();
-        //     startMove();
-        //     startPanel.style.display = 'none';
-        // });
-        item1.whenGoodsAppear();
-
-        //Display counter
-
-        counter.innerHTML = 'SCORE: ' + player.points;
+        playerImg.addEventListener('click', () => {
+            player.update();
+            cancelAnimationFrame(myReq);
+            main();
+            startTimer();
+            startPanel.style.display = 'none';
+        });
+        item1.showGoodItem();
 
         //Choosing player's avatar
+        let click = 0;
 
-        // const leftArrow = document.querySelector('#left');
-        // const rightArrow = document.querySelector('#right');
-        // let count = 0;
+        //Change Avatar in right
+        rightArrow.addEventListener('click', () => {
+            click++;
+            if (click === playerImages.length) {
+                click = 0;
+            }
+            playerImg.firstElementChild.src = playerImages[click];
+            player.changeLook(click, playerImages);
+            render();
+        });
 
-        // //Change Avatar in right
-        // rightArrow.addEventListener('click', () => {
-        //     count++;
-        //     if (count === playerImages.length) {
-        //         count = 0;
-        //     }
-        //     playerImg.firstElementChild.src = playerImages[count];
-        //     player.changeLook(count, playerImages);
-        //     render();
-        // });
-
-        // //Change avatar in left
-        // leftArrow.addEventListener('click', () => {
-        //     count--;
-        //     if (count < 0) {
-        //         count = playerImages.length - 1;
-        //     }
-        //     playerImg.firstElementChild.src = playerImages[count];
-        //     player.changeLook(count, playerImages);
-        //     render();
-        // });
+        //Change avatar in left
+        leftArrow.addEventListener('click', () => {
+            click--;
+            if (click < 0) {
+                click = playerImages.length - 1;
+            }
+            playerImg.firstElementChild.src = playerImages[click];
+            player.changeLook(click, playerImages);
+            render();
+        });
     }
 
     /* This function is called by main (our game loop) and itself calls all
@@ -184,7 +157,6 @@ function startTimer(){
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -254,13 +226,13 @@ function startTimer(){
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        allItems.forEach(function (item) {
-            item.render();
-        });
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
         player.render();
+        allGoodItems.forEach(function (item) {
+            item.render();
+        });
     }
 
     /* This function does nothing but it could have been a good place to
@@ -281,6 +253,10 @@ function startTimer(){
         'images/grass-block.png',
         'images/shark-enemy-resize.png',
         'images/char-boy.png',
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png',
         'images/seahorse2-gem.png',
         'images/star1-gem.png',
         'images/goldfish-gem.png'

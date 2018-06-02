@@ -6,21 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Press Start 2P' rel='stylesheet'>
 </head>
 <body>
     <div class="container">
+		<header>
+			<h1>Arcade Game</h1>
+		</header>
 
-        <!-- Panel Start -->
+        <!-- Start Panel -->
         <div class="start">
-            <div class="text">choose your avatar</div>
+            <div class="start-title">Select Avatar</div>
             <div class="nav" id="left"><img src="images/arrowhead-thin-outline-to-the-left.png" alt="arrow left"></div>
-            <div class="player"><img src="images/char-boy.png" alt="player"></div>
+            <div class="avatar"><img src="images/char-boy.png" alt="avatar"></div>
             <div class="nav" id="right"><img src="images/arrow-point-to-right.png" alt="arrow right"></div>
         </div>
 
+        <!-- Score Panel -->
         <section class="score-panel">
 
-	        <div class="counter"></div>
+	        <div class="counter">
+            	<div class="box-header"><p>SCORE</p></div>
+            	<div class="box-details"><p></p></div>
+            </div>
 	        <div id="timer" class="timer">
 	        	<div class='time-header box-header'><p>Time</p></div>
 	            <div class='time-display box-details'>
@@ -48,32 +56,30 @@
             		<li id="fish-gem" class="gem"><img src="images/goldfish-black-gem.png"></li>
             	</ul>
             </div>
-<!--
-        	<div class="moves">
-                <p>
-                    <span class="moves-elem">Gems collected: </span>
-                    <span id="gems" class="moves-elem"></span>
-                </p>
-            </div> -->
+
         </section>
 
         <!-- Game Over popup -->
 	    <div id="alert-window" class="overlay">
 	        <div id="alert" class="alert">
 	            <div class="close-button">
-	                <a class="close" href="#">×</a>
+	                <a class="close" href="#"><i class="fa fa-times" aria-hidden="true"></i></a>
 	            </div>
-	            <h2></h2>
-	            <div id="alert-paragraph-1" class="content-1">
-	            </div>
-	            <div id="alert-paragraph-2" class="content-2">
-	                <p>You made <span id="finalMove"></span></p>
-	                <p class="totalTime"><span id="totalTime"></span> </p>
-	                <p>Lives left:  <span id="starRating"></span></p>
-	            </div>
-	            <button id="play-again" onclick="playAgain()">
-	                Play again
-	            </button>
+	            <div id="game-over-gif"></div>
+	            <div id="game-over-details">
+		            <h2></h2>
+		            <div id="alert-paragraph-1" class="content-1"></div>
+		            <div id="alert-paragraph-2" class="content-2">
+		                <p>SCORE:  <span id="finalScore"></span></p>
+		                <p>You made <span id="finalMove"></span></p>
+		                <p class="totalTime"><span id="totalTime"></span> </p>
+		            </div>
+		        </div>
+		        <div id="play-again-button">
+		            <button id="play-again" onclick="playAgain()">
+		                Play again
+		            </button>
+		        </div>
 	        </div>
 	    </div>
 
