@@ -15,7 +15,7 @@ frontend-nanodegree-arcade-game
 
 This game was built as a Udacity Course project. The Arcade Game Project is all about demonstrating object programming in JavaScript.
 
-![Game Screen](images/screen.png "screen")
+![Game Screen](images/screengame.png "screen")
 
 ## How to play:
 
