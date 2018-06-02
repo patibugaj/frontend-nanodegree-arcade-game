@@ -47,7 +47,7 @@ Player has 3 lives and the game is over after Player loose the last one.
 
 ### Fonts
 
-- <https://fonts.googleapis.com/css?family=Press Start 2P'>
+- <https://fonts.googleapis.com/css?family=Press Start 2P>
 
 ### GIF
 
